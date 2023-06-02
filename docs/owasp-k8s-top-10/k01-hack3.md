@@ -1,8 +1,33 @@
-# Privileged containers should be disallowed
+# K01: Insecure Workload Configurations
+
+## Privileged containers
+
+This example shows how to disable container from running as a privileged.
 
 # Problem
 
 The dockers's run `--privileged` flag lifts all the limitations enforced by the device cgroup controller, allowing the container to do almost everything what the host can do.
+
+# Setup
+
+## Docker
+
+```shell
+docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
+docker run --privileged --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v2
+```
+
+## Kubernetes
+
+```shell
+docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
+docker push ldynia/hackme-app:v2
+
+kubectl apply -f devops/k8s/manifests/k01/hack3.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80
+```
+
+Visit app at [localhost:8080](http://localhost:8080/)
 
 # Mitigations
 

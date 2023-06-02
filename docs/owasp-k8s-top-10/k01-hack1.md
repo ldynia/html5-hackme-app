@@ -1,6 +1,8 @@
-# Access to write to file system
+# K01: Insecure Workload Configurations
 
-This example demonstrates what could potentialy happened to an application, if an attacker had write access to a file system.
+# Permission to write to file system
+
+This exploit demonstrates what could potentialy happened to an application, if an attacker had permission to write to a file system.
 
 # Setup
 
@@ -17,7 +19,7 @@ docker run --detach --name hackme-app --publish 8080:80 --rm ldynia/hackme-app:v
 docker build -t ldynia/hackme-app:v1 -f devops/docker/v1.Dockerfile .
 docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/hack1.pod.yaml
+kubectl apply -f devops/k8s/manifests/k01/hack1.pod.yaml
 kubectl port-forward pod/hackme-app 8080:80
 ```
 

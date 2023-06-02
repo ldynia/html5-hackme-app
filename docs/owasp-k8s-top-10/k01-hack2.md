@@ -1,12 +1,26 @@
-# Root privilege escalation
+# K01: Insecure Workload Configurations
 
-This example demonstrates what could potentialy happened to an application, if an attacker had root access.
+## Root privilege escalation
+
+This exploit demonstrates what could potentialy happened to an application, if an attacker had root access.
 
 # Setup
 
+## Docker
+
 ```shell
-docker build -t ldynia/hackme-app:v2 -f devops/docker/v2.Dockerfile
+docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
 docker run --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v2
+```
+
+## Kubernetes
+
+```shell
+docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
+docker push ldynia/hackme-app:v2
+
+kubectl apply -f devops/k8s/manifests/k01/hack2.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80
 ```
 
 Visit app at [localhost:8080](http://localhost:8080/)
