@@ -56,3 +56,10 @@ kubectl port-forward service/nginx 7080:80 &
 ````
 
 Visit app on [localhost:8080](http://localhost:8080)
+
+## The App
+
+```shell
+docker build -t ldynia/hackme-app -f devops/docker/v1.Dockerfile .
+docker run -it -d --rm --name hackme-app -p 8080:80 ldynia/hackme-app
+```
