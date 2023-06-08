@@ -39,6 +39,8 @@ docker exec hackme-app bash -c "echo '<\!DOCTYPE html><html lang=\"en\"><head><s
 kubectl exec hackme-app -- bash -c "echo '<\!DOCTYPE html><html lang=\"en\"><head><style> body { align-items: center; background-color: black; display: flex; height: 100vh; justify-content: center; } </style></head><body><img src=\"https://raw.githubusercontent.com/ldynia/html5-hackme-app/main/app/src/assets/img/h1sub.png\"></body></html>' > /usr/share/nginx/html/index.html"
 ```
 
+Visit app at [localhost:8080](http://localhost:8080/)
+
 # Mitigations
 
 To limit the impact of a compromised container, it is recommended to **utilize read-only filesystems when possible.** This prevents a malicious process or application from writing back to the host system.

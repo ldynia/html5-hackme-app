@@ -39,6 +39,8 @@ docker exec hackme-app rm -f /usr/share/nginx/html/index.html
 kubectl exec hackme-app -- rm -f /usr/share/nginx/html/index.html
 ```
 
+Visit app at [localhost:8080](http://localhost:8080/)
+
 # Mitigations
 
 Running the process inside of a container as the root user is a common misconfiguration. **Application processes should not run as root**. If the container were to be compromised, the attacker would have root-level privileges that allow actions such as starting a malicious process.
