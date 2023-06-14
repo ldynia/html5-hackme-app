@@ -35,8 +35,8 @@ kubectl config set-context minikube
 
     ```shell
     {
-        git clone https://github.com/madhuakula/kubernetes-goat.git tmp/kubernetes-goat;
-        cd tmp/kubernetes-goat;
+        git clone https://github.com/ldynia/html5-hackme-app.git --recurse-submodules;
+        cd vendors/kubernetes-goat;
         chmod +x setup-kubernetes-goat.sh access-kubernetes-goat.sh;
         bash setup-kubernetes-goat.sh;
         bash access-kubernetes-goat.sh;
