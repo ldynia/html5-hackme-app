@@ -16,9 +16,10 @@ This stateless application was implemented for the purpose of being hacked.
 
 ```bash
 # Start minikube
-minkube status
-minkube start
-minkube dashboard &
+minikube status
+minikube start --cni=calico
+minikube addons enable metrics-server
+minikube dashboard &
 
 # Use minikube context
 kubectl config get-contexts
