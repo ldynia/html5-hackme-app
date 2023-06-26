@@ -9,18 +9,19 @@ This exploit demonstrates what could potentialy happened to an application, if a
 ## Docker
 
 ```shell
-docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
 docker run --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v2
 ```
 
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
-docker push ldynia/hackme-app:v2
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/k01/hack2.pod.yaml
-kubectl port-forward pod/hackme-app 8080:80
+cat devops/k8s/manifests/k01/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k01/hack.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80 &
 ```
 
 Visit app at [localhost:8080](http://localhost:8080/)
@@ -73,4 +74,11 @@ spec:
     runAsNonRoot: true
     runAsUser: 65534
     ...
+```
+
+```shell
+cat devops/k8s/manifests/k01/fix2.pod.yaml; echo
+kubectl delete pod hackme-app
+kubectl apply -f devops/k8s/manifests/k01/fix2.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80 &
 ```

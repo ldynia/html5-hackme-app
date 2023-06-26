@@ -15,6 +15,7 @@ spec:
       # Make file system read only! 
       securityContext: 
         readOnlyRootFilesystem: true
+      # Fix nginx filesystem error
       volumeMounts:
         - mountPath: /var/run
           name: tmpfs-1

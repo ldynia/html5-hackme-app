@@ -1,4 +1,4 @@
-# K06: Broken Authentication
+# K05: Inadequate Logging and Monitoring
 
 A Kubernetes environment has the ability to generate logs at a variety of levels from many different components.
 
@@ -21,8 +21,8 @@ Inadequate logging in the context of Kubernetes occurs when:
 ## Docker
 
 ```shell
-docker build -t ldynia/hackme-app:v4 -f devops/docker/v1.Dockerfile .
-docker run --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v4
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker run --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v1
 docker logs -f hackme-app
 ```
 Visit app at [localhost:8080](http://localhost:8080/)
@@ -30,10 +30,12 @@ Visit app at [localhost:8080](http://localhost:8080/)
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v4 -f devops/docker/v1.Dockerfile .
-docker push ldynia/hackme-app:v4
+cat devops/docker/Dockerfile; echo
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/k05/hack1.pod.yaml
+cat devops/k8s/manifests/k05/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k05/hack.pod.yaml
 kubectl port-forward pod/hackme-app 8080:80 &
 kubectl logs -f hackme-app
 ```

@@ -8,6 +8,7 @@ spec:
   containers:
     - name: app
       image: ldynia/hackme-app:v1
+      imagePullPolicy: Always
       ports:
         - containerPort: 80
           protocol: TCP

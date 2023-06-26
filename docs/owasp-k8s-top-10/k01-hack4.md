@@ -3,11 +3,13 @@
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v5 -f devops/docker/v3.Dockerfile .
-docker push ldynia/hackme-app:v5
+cat devops/docker/Dockerfile
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/k01/hack4.pod.yaml
-kubectl port-forward pod/hackme-app 8080:80
+cat devops/k8s/manifests/k01/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k01/hack.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80 &
 ```
 
 Visit app at [localhost:8080](http://localhost:8080/)
@@ -36,4 +38,9 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
+```
+
+```shell
+cat devops/k8s/manifests/k01/fix4.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k01/fix4.pod.yaml
 ```

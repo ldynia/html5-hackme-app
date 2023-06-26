@@ -7,11 +7,12 @@ metadata:
 spec:
   containers:
     - name: app
-      image: ldynia/hackme-app:v5
+      image: ldynia/hackme-app:v1
       imagePullPolicy: Always
       ports:
         - containerPort: 80
           protocol: TCP
+      # Control resources
       resources:
         requests:
           memory: "32Mi"

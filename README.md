@@ -21,8 +21,9 @@ minikube start --cni=calico
 minikube addons enable metrics-server
 minikube dashboard &
 
-# Use minikube context
+# Use cluster k8s docker-desktop or minikube
 kubectl config get-contexts
+kubectl config set-context docker-desktop
 kubectl config set-context minikube
 ```
 
@@ -36,9 +37,15 @@ kubectl config set-context minikube
 
     ```shell
     {
+        # Clone repository
         git clone https://github.com/ldynia/html5-hackme-app.git hackme-app --recurse-submodules;
         cd hackme-app/vendors/kubernetes-goat;
-        chmod +x setup-kubernetes-goat.sh access-kubernetes-goat.sh;
+        
+        # Delete OWPASP GOAT resources
+        kubectl delete ns secure-middleware big-monolith;
+        kubectl delete ing,svc,deployment,job,pod --all --force --grace-period 0;
+        
+        # Install OWASP GOAT
         bash setup-kubernetes-goat.sh;
         bash access-kubernetes-goat.sh;
         cd ../../;
@@ -46,17 +53,40 @@ kubectl config set-context minikube
     ```
     Visit [localhost:1234](http://localhost:1234)
 
-## Exploit
+### The App
 
-```shell
-# Create nginx app
-````
+![screen-setup](docs/assets/img/hackme-app.png)
+![screen-setup](docs/assets/img/screen-setup.png)
 
-Visit app on [localhost:8080](http://localhost:8080)
-
-## The App
+### Docker
 
 ```shell
 docker build -t ldynia/hackme-app -f devops/docker/v1.Dockerfile .
 docker run -it -d --rm --name hackme-app -p 8080:80 ldynia/hackme-app
 ```
+
+Visit app on [localhost:8080](http://localhost:8080)
+
+### Kubernetes
+
+```shell
+kubectl apply -f devops/k8s/manifests/k01/hack1.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80 &
+```
+
+Visit app on [localhost:8080](http://localhost:8080)
+
+## Presentation
+
+### OWASP
+
+1. k01-hack1.md - Content swap, rm index.htmkl
+1. k02.hack1.md - Software provenance
+1. k05-hack1.md - Inadequate logs
+1. k01-hack4.md - DoS
+
+### GOAT
+
+1. k02.hack1.md - Envars
+1. k08.hack1.md - gitleaks
+1. k09.hack1.md - kubeaudit

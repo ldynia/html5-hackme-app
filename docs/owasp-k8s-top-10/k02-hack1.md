@@ -17,11 +17,13 @@ Known Software Vulnerabilities
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v3 -f devops/docker/v2.Dockerfile .
-docker push ldynia/hackme-app:v3
+cat devops/docker/Dockerfile; echo
+docker build -t ldynia/hackme-app:v2 --build-arg INDEX_VERSION=v2 -f devops/docker/Dockerfile .
+docker push ldynia/hackme-app:v2
 
-kubectl apply -f devops/k8s/manifests/k02/hack1.pod.yaml
-kubectl port-forward pod/hackme-app 8080:80
+cat devops/k8s/manifests/k02/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k02/hack.pod.yaml
+kubectl port-forward pod/hackme-app 8080:80 &
 ```
 
 Visit app at [localhost:8080](http://localhost:8080/)

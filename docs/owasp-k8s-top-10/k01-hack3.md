@@ -13,17 +13,18 @@ The dockers's run `--privileged` flag lifts all the limitations enforced by the 
 ## Docker
 
 ```shell
-docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
-docker run --privileged --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v2
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker run --privileged --rm  --detach --name hackme-app --publish 8080:80 ldynia/hackme-app:v1
 ```
 
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v2 -f devops/docker/v1.Dockerfile .
-docker push ldynia/hackme-app:v2
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
+docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/k01/hack3.pod.yaml
+cat devops/k8s/manifests/k01/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k01/hack.pod.yaml
 kubectl port-forward pod/hackme-app 8080:80
 ```
 
@@ -44,6 +45,11 @@ spec:
   ...
   securityContext:  
     privileged: false
+```
+
+```shell
+cat devops/k8s/manifests/k01/fix3.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k01/fix3.pod.yaml
 ```
 
 # Links

